@@ -38,10 +38,10 @@ class TimeView extends GetView<TimeController> {
               ),
             ),
             Positioned(
-              bottom: -20.h,
+              bottom: -25.h,
               child: Lottie.network(
                   'https://assets8.lottiefiles.com/private_files/lf30_htijkvxe.json',
-                  animate: false,
+                  animate: true,
                   fit: BoxFit.fitWidth,
                   width: 312.w,
                   height: 300.w
@@ -51,38 +51,50 @@ class TimeView extends GetView<TimeController> {
             Column(
               children: <Widget>[
                 SizedBox(height: 25.h),
-                ClipOval(
-                  child: TimegaugeView(
-                    width: 300.w,
-                  ),
-                ),
+                Obx(() => TimegaugeView(
+// controller.isTimerRunning.isTrue
+//                           ? '${controller.timePointer.value}'
+//                           : 'Done',
+                      clockTittle: controller.getText(),
+                      maxCount: controller.maxCount.value,
+                      pointerValue: controller.timePointer.value,
+                      width: 300.w,
+                    )),
                 SizedBox(height: 55.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    ClipOval(
-                        child: Container(
-                      width: 68.w,
-                      height: 68.w,
-                      color: Colors.green,
-                      child: Center(
-                          child: Text(
-                        '😃',
-                        style: GoogleFonts.ubuntu(fontSize: 35.sp),
+                    InkWell(
+                      onTap: () {
+                        controller.startTimer();
+                      },
+                      child: ClipOval(
+                          child: Container(
+                        width: 68.w,
+                        height: 68.w,
+                        color: Colors.green,
+                        child: Center(
+                            child: Text(
+                          '😃',
+                          style: GoogleFonts.ubuntu(fontSize: 35.sp),
+                        )),
                       )),
-                    )),
+                    ),
                     SizedBox(width: 150.w, height: 10),
-                    ClipOval(
-                        child: Container(
-                      width: 68.w,
-                      height: 68.w,
-                      color: Colors.pinkAccent,
-                      child: Center(
-                          child: Text(
-                        '🙂',
-                        style: GoogleFonts.ubuntu(fontSize: 35.sp),
+                    InkWell(
+                      onTap: () {},
+                      child: ClipOval(
+                          child: Container(
+                        width: 68.w,
+                        height: 68.w,
+                        color: Colors.pinkAccent,
+                        child: Center(
+                            child: Text(
+                          '🙂',
+                          style: GoogleFonts.ubuntu(fontSize: 35.sp),
+                        )),
                       )),
-                    )),
+                    ),
                   ],
                 )
               ],

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeController extends GetxController {
   static const Duration countDownDuration = Duration(seconds: 10);
@@ -56,5 +58,17 @@ class HomeController extends GetxController {
     } else {
       duration.value = Duration(seconds: seconds);
     }
+  }
+
+  Widget buildTime() {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final String minutes = twoDigits(duration.value.inMinutes.remainder(60));
+
+    final String seconds = twoDigits(duration.value.inSeconds.remainder(60));
+
+    return Text(
+      '$minutes : $seconds',
+      style: GoogleFonts.ubuntu(fontSize: 60, color: Colors.black),
+    );
   }
 }

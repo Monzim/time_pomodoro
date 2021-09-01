@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'package:time_pomodoro/app/modules/home/controllers/home_controller.dart';
 
-class TimegaugeView extends GetView<HomeController> {
-  const TimegaugeView({required this.width});
+/*
+Clock maxCount vale
+
+
+
+
+ */
+
+class TimegaugeView extends StatelessWidget {
+  const TimegaugeView({
+    required this.width,
+    required this.maxCount,
+    required this.pointerValue,
+    required this.clockTittle,
+  });
+
   final double width;
+  final int maxCount;
+  final double pointerValue;
+  final String clockTittle;
 
   @override
   Widget build(BuildContext context) {
+    final int _maxCount = maxCount;
+    final double _pointerValue = pointerValue;
+    final String _clockTittle = clockTittle;
+
     return SizedBox(
       width: width,
       height: width,
@@ -29,15 +48,18 @@ class TimegaugeView extends GetView<HomeController> {
           SfRadialGauge(
             axes: <RadialAxis>[
               RadialAxis(
-                  radiusFactor: 0.85,
+                  maximum: _maxCount.toDouble(),
+                  // radiusFactor: 0.85,
                   canScaleToFit: true,
                   startAngle: 0,
                   endAngle: 360,
-                  maximum: 25,
-                  interval: 2,
+                  interval: 5,
                   showFirstLabel: false,
-                  showLabels: false,
-                  showTicks: false,
+                  // showLabels: true,
+                  // showLastLabel: false,
+                  // showTicks: true,
+                  tickOffset: 25,
+
                   // axisLineStyle: AxisLineStyle(
                   //   color: Colors.black.withOpacity(0.2),
                   //   thickness: 0.30,
@@ -45,12 +67,12 @@ class TimegaugeView extends GetView<HomeController> {
                   //   thicknessUnit: GaugeSizeUnit.factor,
                   // ),
                   pointers: <GaugePointer>[
-                    const RangePointer(
-                      value: 25,
+                    RangePointer(
+                      value: _maxCount.toDouble(),
                       // cornerStyle: CornerStyle.bothFlat,
                       width: 0.25,
 
-                      gradient: SweepGradient(
+                      gradient: const SweepGradient(
                         center: FractionalOffset.center,
                         colors: <Color>[
                           Color(0xFFE96A6A),
@@ -65,8 +87,7 @@ class TimegaugeView extends GetView<HomeController> {
                     ),
                     MarkerPointer(
                       markerOffset: width * 0.053,
-                      //TODO: Add Value Function Here
-                      value: 0,
+                      value: _pointerValue, //! PointerValue
                       enableDragging: true,
                       markerHeight: width * .170,
                       markerWidth: width * .170,
@@ -81,7 +102,7 @@ class TimegaugeView extends GetView<HomeController> {
                       positionFactor: width * 0.00025,
                       angle: 90,
                       widget: Text(
-                        '16:20:22',
+                        _clockTittle,
                         style: GoogleFonts.ubuntu(
                             fontSize: width * 0.120.sp,
                             fontWeight: FontWeight.bold,
