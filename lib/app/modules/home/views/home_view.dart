@@ -10,10 +10,10 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Widget buildTime() {
       String twoDigits(int n) => n.toString().padLeft(2, '0');
-      final minutes =
+      final String minutes =
           twoDigits(controller.duration.value.inMinutes.remainder(60));
 
-      final seconds =
+      final String seconds =
           twoDigits(controller.duration.value.inSeconds.remainder(60));
 
       return Text(
@@ -24,46 +24,44 @@ class HomeView extends GetView<HomeController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeView'),
+        title: const Text('HomeView'),
         centerTitle: true,
       ),
       body: Center(
         child: Obx(() => Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 buildTime(),
-                SizedBox(width: 10, height: 10),
-                controller.isRunning.value
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                controller.stopTimer();
-                              },
-                              child: Text('Cancel')),
-                          SizedBox(width: 10, height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              if (controller.isRunning.value) {
-                                controller.stopTimer(reset: false);
-                              } else {
-                                controller.startTimmer(isReset: false);
-                              }
-                            },
-                            child: Text(controller.isRunning.isTrue
-                                ? 'Stop'
-                                : 'Resume'),
-                          )
-                        ],
-                      )
-                    : ElevatedButton(
+                const SizedBox(width: 10, height: 10),
+                if (controller.isRunning.value)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                          onPressed: () {
+                            controller.stopTimer();
+                          },
+                          child: const Text('Cancel')),
+                      const SizedBox(width: 10, height: 10),
+                      ElevatedButton(
                         onPressed: () {
-                          controller.startTimmer();
+                          if (controller.isRunning.value) {
+                            controller.stopTimer(reset: false);
+                          } else {
+                            controller.startTimmer(isReset: false);
+                          }
                         },
-                        child: Text('Start Time')),
+                        child: Text(
+                            controller.isRunning.isTrue ? 'Stop' : 'Resume'),
+                      )
+                    ],
+                  )
+                else
+                  ElevatedButton(
+                      onPressed: () {
+                        controller.startTimmer();
+                      },
+                      child: const Text('Start Time')),
               ],
             )),
       ),

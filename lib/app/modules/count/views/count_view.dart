@@ -9,12 +9,13 @@ import '../controllers/count_controller.dart';
 class CountView extends GetView<CountController> {
   @override
   Widget build(BuildContext context) {
-    var formattedTime = DateFormat('HH:mm').format(controller.now);
-    var formattedDate = DateFormat('EEE, d MMM').format(controller.now);
-    var timeZoneString =
+    final String formattedTime = DateFormat('HH:mm').format(controller.now);
+    final String formattedDate =
+        DateFormat('EEE, d MMM').format(controller.now);
+    final String timeZoneString =
         controller.now.timeZoneOffset.toString().split('.').first;
 
-    var offsetSign = '';
+    String offsetSign = '';
     if (!timeZoneString.startsWith('-')) offsetSign = '+';
     print(timeZoneString);
 
@@ -23,17 +24,17 @@ class CountView extends GetView<CountController> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
-            children: [
+            children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: const <Widget>[
                   MenuButton(icon: Icons.timelapse, label: 'Clock'),
                   MenuButton(icon: Icons.alarm, label: 'Alarm'),
                   MenuButton(icon: Icons.timer, label: 'Timer'),
                   MenuButton(icon: Icons.stop_circle, label: 'StopWatch'),
                 ],
               ),
-              VerticalDivider(
+              const VerticalDivider(
                 color: Colors.white,
                 width: 2,
               ),
@@ -42,11 +43,11 @@ class CountView extends GetView<CountController> {
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        flex: 1,
+                    children: <Widget>[
+                      const Flexible(
+                        // flex: 1,
                         fit: FlexFit.tight,
-                        child: const Text(
+                        child: Text(
                           'Clock',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -60,17 +61,17 @@ class CountView extends GetView<CountController> {
                         flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: <Widget>[
                             Text(formattedTime,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 64,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Text(formattedDate,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -93,22 +94,22 @@ class CountView extends GetView<CountController> {
                         fit: FlexFit.tight,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: <Widget>[
                             const Text('Timezone',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.white,
                                 )),
-                            SizedBox(width: 10, height: 16),
+                            const SizedBox(width: 10, height: 16),
                             Row(
-                              children: [
-                                Icon(Icons.language, color: Colors.white),
-                                SizedBox(width: 16, height: 10),
+                              children: <Widget>[
+                                const Icon(Icons.language, color: Colors.white),
+                                const SizedBox(width: 16, height: 10),
                                 Text(
-                                  'UTC ' + offsetSign + timeZoneString,
+                                  'UTC $offsetSign $timeZoneString',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,
                                   ),
@@ -132,9 +133,9 @@ class CountView extends GetView<CountController> {
 
 class MenuButton extends StatelessWidget {
   const MenuButton({
-    Key? key,
     required this.label,
     required this.icon,
+    Key? key,
   }) : super(key: key);
 
   final String label;
@@ -152,10 +153,10 @@ class MenuButton extends StatelessWidget {
                 color: Colors.white,
                 size: 16,
               ),
-              SizedBox(width: 10, height: 16),
+              const SizedBox(width: 10, height: 16),
               Text(
                 label,
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: Colors.white, fontSize: 14),
               ),
             ],
           )),

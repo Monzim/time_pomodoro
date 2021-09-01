@@ -7,7 +7,7 @@ class CountController extends GetxController {
 
   @override
   void onInit() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       update();
     });
 

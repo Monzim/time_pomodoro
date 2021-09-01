@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  static const countDownDuration = Duration(seconds: 10);
+  static const Duration countDownDuration = Duration(seconds: 10);
+  // ignore: prefer_const_constructors
   Rx<Duration> duration = Duration().obs;
   Timer? timer;
 
@@ -22,8 +23,12 @@ class HomeController extends GetxController {
       resetTimer();
     }
 
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
-    isRunning.value = timer == null ? false : timer!.isActive;
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    if (timer == null) {
+      isRunning.value = false;
+    } else {
+      isRunning.value = timer!.isActive;
+    }
   }
 
   void stopTimer({bool reset = true}) {
@@ -37,17 +42,19 @@ class HomeController extends GetxController {
     if (isCountDown.value) {
       duration.value = countDownDuration;
     } else {
+      // ignore: prefer_const_constructors
       duration.value = Duration();
     }
   }
 
   void addTime() {
-    final addSecond = isCountDown.value ? -1 : 1;
-    final seconds = duration.value.inSeconds + addSecond;
+    final int addSecond = isCountDown.value ? -1 : 1;
+    final int seconds = duration.value.inSeconds + addSecond;
 
     if (seconds < 0) {
       timer?.cancel();
-    } else
+    } else {
       duration.value = Duration(seconds: seconds);
+    }
   }
 }
