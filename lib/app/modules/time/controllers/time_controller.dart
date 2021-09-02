@@ -1,16 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
 
 class TimeController extends GetxController {
-  RxInt maxCount = 10.obs;
+  int initialValue = 10;
+
+  var setTime = 10.obs;
+  RxInt maxCount = 5.obs;
   RxDouble timePointer = 0.0.obs;
 
   Timer? timer;
 
-  String getTimeText(int second) {
-    final int _sec = timePointer.value.toInt() % 60;
-    final int _min = (timePointer.value ~/ 60) % 60;
+  String getTimeText() {
+    final int _sec = setTime.value.toInt() % 60;
+    final int _min = (setTime.value ~/ 60) % 60;
 
     if (_min < 9 && _sec > 9) {
       return '0$_min:$_sec';
@@ -32,9 +36,8 @@ class TimeController extends GetxController {
         if (timePointer.value < maxCount.value) {
           updateTimePointerValue();
         } else {
-          // isTimerRunning.toggle();
           timer.cancel();
-
+          setTime.value = initialValue;
           timePointer.value = 0;
           print('Timer Canceled !!!');
         }
@@ -44,6 +47,11 @@ class TimeController extends GetxController {
 
   Future<void> updateTimePointerValue() async {
     timePointer.value++;
+    setTime.value--;
     print('Time Update + ${timePointer.value}');
+  }
+
+  void playNotificationSound() {
+    FlutterRingtonePlayer.playNotification();
   }
 }

@@ -2,10 +2,10 @@ name: time_pomodoro
 version: 1.0.0+1
 publish_to: none
 description: A flutter pomodoro Timer app.
-environment:
-  sdk: ">=2.12.0 <3.0.0"
+environment: 
+  sdk: '>=2.12.0 <3.0.0'
 
-dependencies:
+dependencies: 
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.0.0+2
   flutter_svg: ^0.22.0
@@ -16,16 +16,17 @@ dependencies:
   mouse_parallax: ^1.1.0
   syncfusion_flutter_gauges: ^19.2.59
   url_launcher: ^6.0.9
-  flutter:
+  flutter_ringtone_player: 3.0.0
+  flutter: 
     sdk: flutter
 
-dev_dependencies:
+dev_dependencies: 
   lint: 1.6.0
-  flutter_test:
+  flutter_test: 
     sdk: flutter
 
-flutter:
-  assets:
+flutter: 
+  assets: 
     - assets/svg/.
-
   uses-material-design: true
+

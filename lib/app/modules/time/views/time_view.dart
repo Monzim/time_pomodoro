@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -54,7 +56,7 @@ class TimeView extends GetView<TimeController> {
               children: <Widget>[
                 SizedBox(height: 25.h),
                 Obx(() => TimegaugeView(
-                      clockTittle: controller.getTimeText(1000),
+                      clockTittle: controller.getTimeText(),
                       maxCount: controller.maxCount.value,
                       pointerValue: controller.timePointer.value,
                       width: 300.w,
@@ -81,7 +83,9 @@ class TimeView extends GetView<TimeController> {
                     ),
                     SizedBox(width: 150.w, height: 10),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        controller.playNotificationSound();
+                      },
                       child: ClipOval(
                           child: Container(
                         width: 68.w,
@@ -95,7 +99,7 @@ class TimeView extends GetView<TimeController> {
                       )),
                     ),
                   ],
-                )
+                ),
               ],
             )
           ],
