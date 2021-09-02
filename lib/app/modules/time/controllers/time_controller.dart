@@ -7,17 +7,22 @@ class TimeController extends GetxController {
   RxDouble timePointer = 0.0.obs;
 
   Timer? timer;
-  String getText() {
-    return timePointer.value.toStringAsFixed(2);
+
+  String getTimeText(int second) {
+    final int _sec = timePointer.value.toInt() % 60;
+    final int _min = (timePointer.value ~/ 60) % 60;
+
+    if (_min < 9 && _sec > 9) {
+      return '0$_min:$_sec';
+    } else if (_sec < 10) {
+      return '0$_min:0$_sec';
+    } else {
+      return '00:00';
+    }
   }
 
   Future<void> updateMaxCount(int value) async {
     maxCount.value = value;
-  }
-
-  Future<void> updateTimePointerValue() async {
-    timePointer.value++;
-    print('Time Update + ${timePointer.value}');
   }
 
   void startTimer() {
@@ -37,31 +42,8 @@ class TimeController extends GetxController {
     );
   }
 
-  // RxInt initialCountValue = 25.obs;
-
-  // RxInt counter = 25.obs;
-  // RxDouble clockValue = 0.0.obs;
-
-  // Timer? timer;
-
-  // void startTimer() {
-  //   timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       if (counter.value > 0) {
-  //         counter.value--;
-  //         print('Clock value ${clockValue.value}');
-  //         clockValue.value++;
-  //       } else {
-  //         timer.cancel();
-  //         setCountValue(timerValue: 30);
-  //       }
-  //     },
-  //   );
-  // }
-
-  // Future<void> setCountValue({required int timerValue}) async {
-  //   counter.value = timerValue;
-  //   clockValue.value = 0.0;
-  // }
+  Future<void> updateTimePointerValue() async {
+    timePointer.value++;
+    print('Time Update + ${timePointer.value}');
+  }
 }

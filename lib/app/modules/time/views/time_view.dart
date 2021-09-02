@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -41,7 +43,7 @@ class TimeView extends GetView<TimeController> {
               bottom: -25.h,
               child: Lottie.network(
                   'https://assets8.lottiefiles.com/private_files/lf30_htijkvxe.json',
-                  animate: true,
+                  animate: false,
                   fit: BoxFit.fitWidth,
                   width: 312.w,
                   height: 300.w
@@ -52,10 +54,7 @@ class TimeView extends GetView<TimeController> {
               children: <Widget>[
                 SizedBox(height: 25.h),
                 Obx(() => TimegaugeView(
-// controller.isTimerRunning.isTrue
-//                           ? '${controller.timePointer.value}'
-//                           : 'Done',
-                      clockTittle: controller.getText(),
+                      clockTittle: controller.getTimeText(1000),
                       maxCount: controller.maxCount.value,
                       pointerValue: controller.timePointer.value,
                       width: 300.w,
